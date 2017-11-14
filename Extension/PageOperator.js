@@ -1,5 +1,6 @@
-
+console.log("Page Operator Running...");
 function startListener(){
+	
 	document.addEventListener('click',(event)=>{
 		console.log("clicked something");
 		var o = getReleventInfo(event);
@@ -46,6 +47,7 @@ function getReleventInfo(event)
 	var objInfo = {command:"recordElement",
 		type:"element",
 	path:processPath(event.path),
+	id:event.target.id,
 	elementInfo:event.target.outerHTML}
 	return objInfo;
 }

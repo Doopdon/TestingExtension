@@ -14,12 +14,13 @@ chrome.runtime.onMessage.addListener(
     }
 
 
+
   	var parser = new DOMParser();
   	// var doc = parser.parseFromString(request.elementInfo, "text/html");
   	// console.log(doc);
-    findEidtor(function(tab){
-      chrome.tabs.sendMessage(tab.id,{command:"command", message:request});
-    });
+    // findEidtor(function(tab){
+    //   chrome.tabs.sendMessage(tab.id,{command:"command1", message:request});
+    // });
     //chrome.tabs.sendMessage(findEidtor().id,{command:"command", message:"sentit"});
   });
 

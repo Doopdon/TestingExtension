@@ -1,3 +1,17 @@
+document.addEventListener('DOMContentLoaded', () => {
+  
+    var button = document.getElementById('button');
+    
+  
+    button.addEventListener('click', () => {
+      update();
+    });
+  
+    
+  });
+  
+
+
 function update()
 {
   document.getElementById("lbl1").innerHTML = document.getElementById("tx1").value;

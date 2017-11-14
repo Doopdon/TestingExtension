@@ -116,9 +116,14 @@ function saveBackgroundColor(url, color) {
 // user devices.
 
 
-function goToEroniousUrl()
+function goToEditor()
 {
-  chrome.tabs.create({ url: "eronious.html" });
+  chrome.tabs.create({ url: "Editor.html" });
+}
+
+function goToTestUrl()
+{
+  chrome.tabs.create({url: "Test Page/PlayGround.html"});
 }
 
 function turnOnInvestigateMode(callback)
@@ -150,11 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // });
 
   button.addEventListener('click', () => {
-    goToEroniousUrl();
+    goToEditor();
   });
 
   button2.addEventListener('click', () => {
-    turnOnInvestigateMode(function(){button2.innerHTML = "investigate mode on";})
+    goToTestUrl();
+    //turnOnInvestigateMode(function(){button2.innerHTML = "investigate mode on";})
   });
 
 

@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Getting started example",
-  "description": "This extension allows the user to change the background color of the current page.",
+  "description": "This extension records and plays back events that happend on a page",
   "version": "1.0",
   "options_page": "optionspage.html",
 
@@ -16,12 +16,12 @@
     {
       "matches": ["<all_urls>"],
       "css": ["mystyle.css"],
-      "js": ["jquery.js", "myscript.js"]
+      "js": ["jquery.js", "PageOperator.js"]
     }
   ],
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["Dispatcher.js"]
   },
 
   "permissions": [
