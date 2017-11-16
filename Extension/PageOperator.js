@@ -1,27 +1,69 @@
 console.log("Page Operator Running...");
+var _currentTabId;
 function startListener(){
-	
-	document.addEventListener('click',(event)=>{
-		console.log("clicked something");
-		var o = getReleventInfo(event);
-		console.log("info:",o)
-		sendMessageToBackground(o);
-	})
+	//sets and saves the _currentTab
+	chrome.tabs.getCurrent(function(tab){_currentTabId = tab.id;
+		//every time somehting is clicked on a pagethis exicutes
+		document.addEventListener('click',(event)=>{
+			sendMessageToBackground(createActionRecord(event));
+		})
 
-	chrome.runtime.onMessage.addListener(
-	  function(request, sender, sendResponse) {
-	    console.log(request);
-	    doFunction(request.command, request.objectInfo, request.parameter);
-	    
-	  });
-
-	// chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
- //   			//if (msg.action == 'SendIt') {
- //      		alert("Message recieved!");
- //   	});
-
-
+		//this is the reciver for commands given by the editor through the dispatcher.
+		chrome.runtime.onMessage.addListener(
+		function(request, sender, sendResponse) {
+			console.log("request:",request);
+			handleRequest(request);
+			//doFunction(request.command, request.objectInfo, request.parameter);  
+		});
+	});
 };
+
+function handleRequest(request)
+{
+	console.log("handling request:", request);
+	if(request.type == "preformAction")
+	{
+		prefromAction(request.info);
+	}
+}
+
+function prefromAction(info)
+{
+	console.log("preforming action info:", info);
+	doAction(getElementByIdentity(info.identity),info.action);
+}
+
+//gets the element by what ever means necissary using the identity object.
+function getElementByIdentity(identity)
+{
+	console.log("getting element identity:", identity);
+	var elem = document.getElementById(identity.id)
+	console.log("got element:", elem);
+	return elem;
+}
+
+function doAction(element, action)
+{
+	console.log("doing action elemtn action:", element,action);
+	if(action == "click")
+	{
+		element.click();
+	}
+}
+
+
+function createActionRecord(event)
+{
+	return {type:"action",
+	info:{identity:getIdentity(event),tabId:_currentTabId,action:event.type}};
+}
+
+//this will gather all information about the object being acted upon. including the path and other infor
+//for now its just the id for simplicity.
+function getIdentity(event)
+{
+	return {id:event.target.id};
+}
 
 
 function doFunction(command, objectInfo , parameter)

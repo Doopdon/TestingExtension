@@ -5,24 +5,25 @@ var PlaybackTabs = [];
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-  	console.log(request);
-    if(request.command === "play")
+  	console.log("this is the request:",request);
+    if(request.type === "preformAction")
     {
-          console.log("play:",request);
-          startPlayingTab(request.message);
-          return;
+          console.log("preformAction:",request);
+          // startPlayingTab(request.message);
+          // return;
     }
+    else{
 
-
-
-  	var parser = new DOMParser();
-  	// var doc = parser.parseFromString(request.elementInfo, "text/html");
-  	// console.log(doc);
-    // findEidtor(function(tab){
-    //   chrome.tabs.sendMessage(tab.id,{command:"command1", message:request});
-    // });
-    //chrome.tabs.sendMessage(findEidtor().id,{command:"command", message:"sentit"});
+        // var parser = new DOMParser();
+        // var doc = parser.parseFromString(request.elementInfo, "text/html");
+        // console.log(doc);
+        findEidtor(function(tab){
+          chrome.tabs.sendMessage(tab.id,request);
+        });
+    }
+    //chrome.tabs.sendMessage(findEidtor().id,request);
   });
+
 
 
 function startPlayingTab(message)
@@ -108,7 +109,7 @@ function findEidtor(callback)
         console.log("tabs:",tabs);
         for(let j=0; j < tabs.length; j++)
         {
-          if(tabs[j].title === "Eronious")
+          if(tabs[j].title === "Editor")
           {
             console.log("the tab",tabs[j]);
             callback(tabs[j]);
