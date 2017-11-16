@@ -6,12 +6,16 @@ function startListener(){
 		//every time somehting is clicked on a pagethis exicutes
 		document.addEventListener('click',(event)=>{
 			sendMessageToBackground(createActionRecord(event));
-		})
+		});
+		document.addEventListener('keydown',(event)=>{
+			console.log("keydown Event:",event);
+		});
+
+
 
 		//this is the reciver for commands given by the editor through the dispatcher.
 		chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
-			console.log("request:",request);
 			handleRequest(request);
 			//doFunction(request.command, request.objectInfo, request.parameter);  
 		});
@@ -20,7 +24,6 @@ function startListener(){
 
 function handleRequest(request)
 {
-	console.log("handling request:", request);
 	if(request.type == "preformAction")
 	{
 		prefromAction(request.info);
@@ -29,22 +32,18 @@ function handleRequest(request)
 
 function prefromAction(info)
 {
-	console.log("preforming action info:", info);
 	doAction(getElementByIdentity(info.identity),info.action);
 }
 
 //gets the element by what ever means necissary using the identity object.
 function getElementByIdentity(identity)
 {
-	console.log("getting element identity:", identity);
-	var elem = document.getElementById(identity.id)
-	console.log("got element:", elem);
+	var elem = document.getElementById(identity.id);
 	return elem;
 }
 
 function doAction(element, action)
 {
-	console.log("doing action elemtn action:", element,action);
 	if(action == "click")
 	{
 		element.click();

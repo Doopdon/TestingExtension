@@ -26,19 +26,14 @@ function populateEditor(request)
 function populateEventInEditorArea(name,action)
 {
 	var editorArea = document.getElementById("mainEditor");
-	if(action == "click")
-	{
-		editorArea.value += "Preform("+action+")on("+name+");\r";
-	}
+	editorArea.value += "Preform("+action+")on("+name+");\r";
 }
 
-//stand in unique name
+//stand in unique name for elements
 var _name = 1;
 function populateElements(identity)
 {
-	
 	var storageElem = document.getElementById("elements");	
-	
 	try{
 		_elements = JSON.parse(storageElem.value);
 	}
@@ -83,22 +78,11 @@ function playBack()
 {
 	var mainEditor = document.getElementById("mainEditor");
 	var commands = mainEditor.value.split(";");
-	  
 	runCommands(0,commands,0);
-	
-
-	// console.log("playing");
-	// sendMessageToBackground({command:"play",message:{tabId:"a", command:"openUrl",objectInfo:"oi",parameter:"https://www.reddit.com"}});
-
-	// setTimeout(function(){ 
-	// 	sendMessageToBackground({command:"play",message:{tabId:"a", command:"click",objectInfo:{id:"header-img"},parameter:null}}); 
-	// }, 2000);
-
 }
 
 function runCommands(timeout,commands,index)
 {
-	console.log("running command:",index);
 	setTimeout(function()
 	{
 		if(commands[index].trim() != "")
