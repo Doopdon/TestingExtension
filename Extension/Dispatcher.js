@@ -5,9 +5,10 @@ var PlaybackTabs = [];
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if(request.type === "preformAction")
+    if(request.type == "preformAction")
     {
-          runAction(request);
+      console.log("sendResponse:",request,sender, sendResponse);
+          runAction(request,sendResponse);
     }
     else{
         findEidtor(function(tab){

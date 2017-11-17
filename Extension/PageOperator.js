@@ -5,34 +5,34 @@ function startListener(){
 	chrome.tabs.getCurrent(function(tab){_currentTabId = tab.id;
 		//every time somehting is clicked on a pagethis exicutes
 		document.addEventListener('click',(event)=>{
-			sendMessageToBackground(createActionRecord(event));
+			handleClickEvent(event,sendMessageToDispatch);
 		});
 		document.addEventListener('keydown',(event)=>{
-			console.log("keydown Event:",event);
+			//console.log("keydown Event:",event);
+			handleKeyDownEvent(event,sendMessageToDispatch);
 		});
-
-
 
 		//this is the reciver for commands given by the editor through the dispatcher.
 		chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
-			handleRequest(request);
+			console.log("sendResponse:",sendResponse);
+			handleRequest(request, sendResponse);
 			//doFunction(request.command, request.objectInfo, request.parameter);  
 		});
 	});
 };
 
-function handleRequest(request)
+function handleRequest(request, sendResponse)
 {
 	if(request.type == "preformAction")
 	{
-		prefromAction(request.info);
+		prefromAction(request.info, sendResponse);
 	}
 }
 
-function prefromAction(info)
+function prefromAction(info, sendResponse)
 {
-	doAction(getElementByIdentity(info.identity),info.action);
+	doAction(getElementByIdentity(info.identity),info.action, info.value, sendResponse);
 }
 
 //gets the element by what ever means necissary using the identity object.
@@ -42,19 +42,47 @@ function getElementByIdentity(identity)
 	return elem;
 }
 
-function doAction(element, action)
+function doAction(element, action, value, sendResponse)
 {
-	if(action == "click")
+	if(action.toUpperCase() == "Click".toUpperCase())
 	{
 		element.click();
 	}
+	if(action.toUpperCase() == "SetTextOf".toUpperCase())
+	{
+		element.value = value;
+	}
+	if(action.toUpperCase() == "Inspect".toUpperCase())
+	{
+		console.log("sendRespons",sendResponse);
+		//todo mek this take all kinds of values not just value
+		if(value.toUpperCase = "value".toUpperCase())
+		{
+			console.log(element.value);
+			sendResponse("test");
+		}
+	}
 }
 
+var time;
+function handleKeyDownEvent(event,callback)
+{ 
+	var timeOffset = 1000
+	time = Date.now()
+	setTimeout(function(){
+		if(Date.now()-time>timeOffset-5)
+		{
+			var t = {type:"action",info:{identity:getIdentity(event),tabId:_currentTabId,action:event.type,text:event.srcElement.value}};
+			callback(t);
+		}
+	},timeOffset+5);
+}
 
-function createActionRecord(event)
+function handleClickEvent(event,callback)
 {
-	return {type:"action",
+	var t = {type:"action",
 	info:{identity:getIdentity(event),tabId:_currentTabId,action:event.type}};
+	callback(t);
 }
 
 //this will gather all information about the object being acted upon. including the path and other infor
@@ -77,7 +105,7 @@ function doFunction(command, objectInfo , parameter)
 }
 
 
-function sendMessageToBackground(object){
+function sendMessageToDispatch(object){
 	chrome.extension.sendMessage(object);
 }
 

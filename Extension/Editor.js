@@ -15,11 +15,23 @@ function startListeners()
 }
 
 function populateEditor(request)
-{	var elem = populateElements(request.info.identity);
-	if(elem)
+{
+	//adds elements to list of elements and returns it.
+	var elem = populateElements(request.info.identity);
+	if(request.info.action == "click")
 	{
 		populateEventInEditorArea(elem.name,request.info.action)
 	}
+	else if(request.info.action == "keydown")
+	{
+		populateKeyDown(elem.name,request.info.text)
+	}
+}
+
+function populateKeyDown(name,text)
+{
+	var editorArea = document.getElementById("mainEditor");
+	editorArea.value += "SetTextOf("+name+")To(\""+text+"\");\r";
 }
 
 
@@ -74,6 +86,7 @@ function addElement(name, id, elemToAddTo)
 	elemToAddTo.textContent+="{name:"+name+",id:"+id+"}\r\r";
 }
 
+//Play Back Functionality
 function playBack()
 {
 	var mainEditor = document.getElementById("mainEditor");
@@ -105,35 +118,47 @@ function doCommand(command)
 	var commandParts = command.split('|');
 	
 	//determines type of command
-	if(commandParts[0].toUpperCase() == "PREFORM")
+	if(commandParts[0].toUpperCase() == "Preform".toUpperCase())
 	{
 		preformAction(commandParts[1],commandParts[3]);		
 	}
-	else if(commandParts[0].toUpperCase() == "WAIT")
+	else if(commandParts[0].toUpperCase() == "SetTextOf".toUpperCase())
+	{
+		preformAction("SetTextOf",commandParts[1],commandParts[3]);
+	}
+	else if(commandParts[0].toUpperCase() == "Wait".toUpperCase())
 	{
 		//this will return the amount of time in seconds that should be watied
 		return commandParts[1]*1000;
 	}
-
-	return 10;
+	else if(commandParts[0].toUpperCase() == "Inspect".toUpperCase())
+	{
+		preformAction("Inspect",commandParts[1],commandParts[3], 
+		function(reply){console.log("reply from page:",reply)});
+	}
+	return 100;
 }
 
-function preformAction(action,name)
+
+
+function preformAction(action,name,value,response)
 {
+	console.log("prefroming action...")
 	var element;
 	for(var i = 0; i < _elements.length; i++)
 	{
-		
 		if(_elements[i].name == name)
 		{
 			element = _elements[i];
 			i = _elements.length;
 		}
 	}
+
 	sendMessageToDispatcher({type:"preformAction",
 							info:{tabId:element.tabId,
 								identity:element.identity,
-								action:action}});
+								action:action,
+								value:value}},response);
 }
 
 //god fucking damn it javascript
@@ -146,8 +171,8 @@ function replaceAll(initialString, stringToReplace, stringToReplaceWith)
 }
 
 
-function sendMessageToDispatcher(object){
-	chrome.extension.sendMessage(object);
+function sendMessageToDispatcher(object,response){
+	chrome.extension.sendMessage(object,response);
 }
 
 
