@@ -15,7 +15,6 @@ function startListener(){
 		//this is the reciver for commands given by the editor through the dispatcher.
 		chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
-			console.log("sendResponse:",sendResponse);
 			handleRequest(request, sendResponse);
 			//doFunction(request.command, request.objectInfo, request.parameter);  
 		});
@@ -54,12 +53,10 @@ function doAction(element, action, value, sendResponse)
 	}
 	if(action.toUpperCase() == "Inspect".toUpperCase())
 	{
-		console.log("sendRespons",sendResponse);
 		//todo mek this take all kinds of values not just value
 		if(value.toUpperCase = "value".toUpperCase())
 		{
-			console.log(element.value);
-			sendResponse("test");
+			sendResponse(element.value);
 		}
 	}
 }
