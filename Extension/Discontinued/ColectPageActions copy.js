@@ -36,6 +36,8 @@ function handleRequest(request, sendResponse)
 // 	doAction(getElementFromIdentity(info.identity),info.action, info.value, sendResponse);
 // }
 
+
+
 //gets the element by what ever means necissary using the identity object.
 // function getElementByIdentity(identity)
 // {

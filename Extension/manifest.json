@@ -8,7 +8,7 @@
 
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "DropDown.html",
+    "default_popup": "Dropdown/DropDown.html",
     "default_title": "Click here!"
   },
   
@@ -16,7 +16,7 @@
     {
       "matches": ["<all_urls>"],
       "css": ["mystyle.css"],
-      "js": ["jquery.js", "PageOperator.js"]
+      "js": ["jquery.js","Identity.js","PageOperator/PageOperator.js"]
     }
   ],
 
