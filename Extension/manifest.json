@@ -15,13 +15,12 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["mystyle.css"],
-      "js": ["jquery.js","Identity.js","PageOperator/PageOperator.js"]
+      "js": ["jquery.js","Identity/Identity.js","PageOperator/PageOperator.js"]
     }
   ],
 
   "background": {
-    "scripts": ["Dispatcher.js"]
+    "scripts": ["Dispatcher/Dispatcher.js"]
   },
 
   "permissions": [

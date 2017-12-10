@@ -1,12 +1,12 @@
 
 function goToEditor()
 {
-  chrome.tabs.create({ url: "Editor.html" });
+  chrome.tabs.create({ url: "../Editor/Editor.html" });
 }
 
 function goToTestUrl()
 {
-  chrome.tabs.create({url: "Test Page/PlayGround.html"});
+  chrome.tabs.create({url: "../PlayGround/PlayGround.html"});
 }
 
 function turnOnInvestigateMode(callback)
