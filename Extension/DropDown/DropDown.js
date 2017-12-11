@@ -36,5 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
     //turnOnInvestigateMode(function(){button2.innerHTML = "investigate mode on";})
   });
 
-
 });
