@@ -1,4 +1,5 @@
 var time;
+var tempId;
 function handleKeyDownEvent(event,callback)
 { 
 	var timeOffset = 1000
@@ -6,7 +7,8 @@ function handleKeyDownEvent(event,callback)
 	setTimeout(function(){
 		if(Date.now()-time>timeOffset-5)
 		{
-			var t = {type:"action",info:{identity:getIdentityFromElement(event.target),tabId:_currentTabId,action:event.type,text:event.srcElement.value}};
+			var tId = etIdentityFromElement(event.target);
+			var t = {type:"action",info:{identity:tId,tabId:_currentTabId,action:event.type,text:event.srcElement.value}};
 			callback(t);
 		}
 	},timeOffset+5);

@@ -1,4 +1,4 @@
-//var _elements = [];
+
 function startListeners()
 {
 	var button = document.getElementById('button');
@@ -18,14 +18,10 @@ function startListeners()
 	});
 }
 
-
 function sendMessageToDispatcher(object,response){
 	chrome.extension.sendMessage(object,response);
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
-
-  
   startListeners();
 });
