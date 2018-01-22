@@ -4,8 +4,16 @@ function playBack()
 {
 	var mainEditor = document.getElementById("mainEditor");
 	var commands = mainEditor.value.split(";");
-	runCommands(0,commands,0);
+	runCommand(commands,0)
+	
+	//runCommands(0,commands,0);
 }
+
+function runCommand(commands,index){
+	var res = commandRunner(commands[index]);
+}
+
+
 
 function runCommands(timeout,commands,index)
 {
@@ -52,7 +60,17 @@ function doCommand(command)
 	return 100;
 }
 
-
+function getElement(name)
+{
+	var element;
+	for(var i = 0; i < _elements.length; i++)
+	{
+		if(_elements[i].name == name)
+		{
+			return _elements[i];
+		}
+	}
+}
 
 function preformAction(action,name,value,response)
 {

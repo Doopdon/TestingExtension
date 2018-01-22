@@ -7,7 +7,6 @@ function commandRunner(commandString)
 
 function commandRunnerRecurser(commandString,tree,params,terminators)
 {
-  console.log("info:",commandString,tree);
   var char = commandString[0];
   var remainder = commandString.slice(1,commandString.length);
   
@@ -28,7 +27,6 @@ function commandRunnerRecurser(commandString,tree,params,terminators)
       
       //plug the remainder of the command after this recursive function into the next recursive function
       //keep the same tree.
-      console.log("function call return value",returnValue);
       params.push(returnValue.value);
       return commandRunnerRecurser(returnValue.remainder,tree["%"],params)
     }
@@ -39,16 +37,13 @@ function commandRunnerRecurser(commandString,tree,params,terminators)
   }
   else if(tree["funct"])
   {
-    console.log("running fuction");
     return {remainder:commandString,value:tree["funct"](params)};
   }
   else{
     if(terminators[char])
     {
-      console.log("in final parameter return");
       return {remainder:commandString,value:""};
     }
-    console.log("in the parameter thing");
     var returnValue = commandRunnerRecurser(remainder,[],[],terminators);
     return {remainder:returnValue.remainder,value:char+returnValue.value}
   }

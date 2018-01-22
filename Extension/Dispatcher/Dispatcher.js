@@ -5,6 +5,7 @@ var PlaybackTabs = [];
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    console.log("in onMessage.addListener. request:",request,"sender",sender,"sendResponse",sendResponse);
     if(request.type == "preformAction")
     {
       console.log("sendResponse:",request,sender, sendResponse);
@@ -20,6 +21,7 @@ chrome.runtime.onMessage.addListener(
 
 function runAction(request)
 {
+  console.log("in runAction");
   findTab(request.info.tabId,function(tab){
     chrome.tabs.sendMessage(tab.id,request);
   })

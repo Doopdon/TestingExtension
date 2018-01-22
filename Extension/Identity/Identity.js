@@ -8,6 +8,7 @@ function getIdentityFromElement(element)
 //returns an element from the page based on the identity.
 function getElementFromIdentity(identity)
 {
+	//return $("#"+identity.id);
   return document.getElementById(identity.id);
 }
 

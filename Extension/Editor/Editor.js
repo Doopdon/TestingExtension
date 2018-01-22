@@ -6,11 +6,6 @@ function startListeners()
 	  playBack();
 	});
 
-	var button = document.getElementById('test');
-	button.addEventListener('click', () => {
-	  initializeTree();
-	});
-
 	chrome.runtime.onMessage.addListener(
 	  	function(request, sender, sendResponse) {  
 		if(!sender.url)
@@ -24,9 +19,11 @@ function startListeners()
 }
 
 function sendMessageToDispatcher(object,response){
+	console.log("in sendMessageToDispatcher. Object",object,"response",response);
 	chrome.extension.sendMessage(object,response);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+	initializeTree();
   startListeners();
 });

@@ -7,11 +7,11 @@ function startListener(){
 	chrome.tabs.getCurrent(function(tab){
 		//set tab id for the current tab.
 		_currentTabId = tab.id;
-		//every time somehting is clicked on a page this exicutes
+		//every time somehting is clicked on a page this executes
 		document.addEventListener('click',(event)=>{
 			handleClickEvent(event,sendMessageToDispatch);
 		});
-		//every time you hit a key this is called
+		//every time you hit a key this executes
 		document.addEventListener('keydown',(event)=>{
 			handleKeyDownEvent(event,sendMessageToDispatch);
 		});
