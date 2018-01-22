@@ -1,7 +1,7 @@
 //Stands in for the Editor, also holds the commandTree object
 
 
-var _commandTree = [];
+
 function f()
 {
   addCommandListToTree([

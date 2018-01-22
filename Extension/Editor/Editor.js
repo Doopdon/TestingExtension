@@ -6,6 +6,11 @@ function startListeners()
 	  playBack();
 	});
 
+	var button = document.getElementById('test');
+	button.addEventListener('click', () => {
+	  initializeTree();
+	});
+
 	chrome.runtime.onMessage.addListener(
 	  	function(request, sender, sendResponse) {  
 		if(!sender.url)
