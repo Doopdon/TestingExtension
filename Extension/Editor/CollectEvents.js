@@ -7,15 +7,26 @@ function populateEditor(request)
 	{
 		populateClick(elem.name);
 	}
+	else if(request.info.action == "contextmenu")
+	{
+		populateContextMenu(elem.name);
+	}
 	// else if(request.info.action == "keydown")
 	// {
 	// 	populateKeyDown(elem.name,request.info.text)
 	// }
 }
 
+
+//todo change this so that these are not hard coded. use the text parser somehow
 function populateClick(name){
 	var editorArea = document.getElementById("mainEditor");
 	editorArea.value += "click("+name+");";
+}
+
+function populateContextMenu(name){
+	var editorArea = document.getElementById("mainEditor");
+	editorArea.value += "contextMenu("+name+");";
 }
 
 // function populateClick(name){

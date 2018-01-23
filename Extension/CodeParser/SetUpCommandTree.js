@@ -2,8 +2,9 @@ var _commandTree = [];
 
 var defaultCommands = [
     {word:"click(%)",funct:click},
-    {word:"rightClick(%)",funct:rightClick},
+    {word:"contextMenu(%)",funct:contextMenu},
     {word:"hover(%)",funct:hover},
+    {word:"pause(%)",funct:pause},
     {word:"inspect(%)",funct:inspect},
     {word:"enterValue(%,%)",funct:enterValue},
     {word:"pressKey(%,%)",funct:pressKey},
@@ -22,12 +23,23 @@ function click(idName){
     console.log("click function");
 }
 
-function rightClick(identity){
-    console.log("click function");
+function contextMenu(idName){
+    var elem = getElement(idName)
+
+    sendMessageToDispatcher({type:"preformAction",
+							info:{tabId:elem.tabId,
+								identity:elem.identity,
+								action:'contextmenu'}});
+
+    console.log("context menu");
 }
 
 function hover(identity){
     console.log("click function");
+}
+
+function pause(time){
+    console.log("in pause function");
 }
 
 function inspect(idName){
@@ -44,19 +56,17 @@ function inspect(idName){
 }
 
 function enterValue(identity,value,callback){
-    console.log("click function");
+    console.log("incomplete function");
 }
 
 function pressKey(identity,key,callback){
-    console.log("click function");
+    console.log("incomplete function");
 }
 
 function runScript(script,callback){
-    console.log("click function");
+    console.log("incomplete function");
 }
 
 function initializeTree(){
-    console.log("initializing");
     addCommandListToTree(defaultCommands);
-    console.log("tree",_commandTree);
 }

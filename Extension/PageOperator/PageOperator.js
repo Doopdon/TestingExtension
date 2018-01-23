@@ -11,6 +11,10 @@ function startListener(){
 		document.addEventListener('click',(event)=>{
 			handleClickEvent(event,sendMessageToDispatch);
 		});
+		document.addEventListener('contextmenu',(event)=>{
+			handleContextMenu(event,sendMessageToDispatch);
+		});
+
 		//every time you hit a key this executes
 		document.addEventListener('keydown',(event)=>{
 			handleKeyDownEvent(event,sendMessageToDispatch);

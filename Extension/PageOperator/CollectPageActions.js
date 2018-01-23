@@ -14,14 +14,25 @@ function handleKeyDownEvent(event,callback)
 	},timeOffset+5);
 }
 
-function handleClickEvent(event,callback)
+function handleContextMenu(event, callback)
 {
+	console.log("in handleContextMenu");
 	var t = {type:"action",
 	info:{identity:getIdentityFromElement(event.target),tabId:_currentTabId,action:event.type}};
 	callback(t);
 }
 
+function handleClickEvent(event,callback)
+{
+	console.log("in handleClickEvent, callback:",callback);
+	var t = {type:"action",
+	info:{identity:getIdentityFromElement(event.target),tabId:_currentTabId,action:event.type}};
+	callback(t);
+}
+
+//todo get this and the otherone in a shared file
 function sendMessageToDispatch(object){
+	console.log("in send Message to dispatcher, info:",object);
 	chrome.extension.sendMessage(object);
 }
 

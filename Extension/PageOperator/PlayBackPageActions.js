@@ -10,7 +10,6 @@ function handleRequest(request, sendResponse)
 
 function doAction(element, action, value, sendResponse)
 {
-	console.log("in doAction");
 	if(action.toUpperCase() == "Click".toUpperCase())
 	{
 		element.click();
@@ -19,9 +18,9 @@ function doAction(element, action, value, sendResponse)
 	{
 		element.value = value;
 	}
-	if(action.toUpperCase() == "rightClick".toUpperCase())
+	if(action.toUpperCase() == "contextMenu".toUpperCase())
 	{
-		element.rightClick();
+		element.dispatchEvent(new CustomEvent('contextmenu'));
 	}
 	if(action.toUpperCase() == "Inspect".toUpperCase())
 	{

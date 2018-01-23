@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btn1.addEventListener('click', () => {
       btnOne();
     });
+    //rightClick
+    btn1.addEventListener('contextmenu', () => {
+      btnOneRightClick();
+    });
     btn2.addEventListener('click', () => {
       btnTwo();
     });
@@ -30,6 +34,10 @@ function update()
   document.getElementById("lbl3").innerHTML = document.getElementById("tx3").value;
 }
 
+function btnOneRightClick()
+{
+  document.getElementById("lbl1").innerHTML = "-1";
+}
 function btnOne()
 {
   document.getElementById("lbl1").innerHTML = "1";
